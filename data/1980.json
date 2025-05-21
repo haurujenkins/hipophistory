@@ -1,0 +1,18 @@
+{
+    "year": 1980,
+    "events": [
+        {
+            "title": "Premier concert majeur a Paris",
+            "description": "Une nouvelle génération de rappeurs français se produit pour la première fois sur une grande scène parisienne."
+        }
+        ,
+        {
+            "title": "Sortie de l'album 'Rapper's Delight'",
+            "description": "Le groupe Sugarhill Gang sort un album qui popularise le rap au niveau international."
+        },
+        {
+            "title": "Naissance de la culture hip-hop",
+            "description": "Le mouvement hip-hop commence à prendre forme avec des éléments de danse, de graffiti et de musique."
+        }
+    ]
+}
