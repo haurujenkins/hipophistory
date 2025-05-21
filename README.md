@@ -48,5 +48,5 @@ cd hipophistory
 
 npm install
 npx tsc
-
+```
 ouvrir index.html dans un navigateur
