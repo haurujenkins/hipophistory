@@ -35,6 +35,9 @@ function renderYear(data) {
     const section = document.createElement("section");
     section.className = "year-block";
     section.setAttribute("data-year", data.year.toString());
+    section.style.opacity = "0";
+    section.style.transform = "translateY(40px)";
+    section.style.transition = "opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1)";
     // Ajout de la classe reverse une fois sur deux (ex: années paires)
     if (data.year % 2 === 1) {
         section.classList.add("reverse");
@@ -62,6 +65,9 @@ function renderYear(data) {
     /*** Partie droite : événement principal + extra ***/
     const eventContainer = document.createElement("div");
     eventContainer.className = "event";
+    eventContainer.style.opacity = "0";
+    eventContainer.style.transform = "translateY(40px)";
+    eventContainer.style.transition = "opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1)";
     const firstEvent = data.events[0];
     if (firstEvent.image) {
         const img = document.createElement("img");
@@ -114,10 +120,6 @@ function renderYear(data) {
     section.appendChild(eventContainer);
     section.appendChild(extraContainer);
     timeline.appendChild(section);
-    // Animation d'apparition fluide uniquement pour le premier event
-    setTimeout(() => {
-        eventContainer.classList.add("visible");
-    }, 50);
     // Ajouter un nouveau sentinel après ce bloc
     const sentinel = document.createElement("div");
     sentinel.className = "sentinel";
@@ -133,6 +135,18 @@ function setupScrollLoading() {
             if (entry.isIntersecting) {
                 const lastLoaded = parseInt(entry.target.getAttribute("data-year") || `${currentYear}`);
                 const nextYear = lastLoaded + 1;
+                // Afficher la section correspondante
+                const section = document.querySelector(`section.year-block[data-year='${lastLoaded}']`);
+                if (section) {
+                    section.style.opacity = "1";
+                    section.style.transform = "translateY(0)";
+                    // Afficher aussi le premier event
+                    const event = section.querySelector('.event');
+                    if (event) {
+                        event.style.opacity = "1";
+                        event.style.transform = "translateY(0)";
+                    }
+                }
                 if (nextYear <= maxYear) {
                     loadYear(nextYear);
                 }
