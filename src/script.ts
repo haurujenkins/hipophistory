@@ -52,22 +52,90 @@ function renderYear(data: YearData) {
   yearTitle.className = "year-title";
   yearTitle.textContent = data.year.toString();
 
+  // Lignes et boutons haut/bas sur une seule ligne verticale
   const lineButton = document.createElement("div");
   lineButton.className = "line-button";
 
-  const lineTop = document.createElement("div");
-  lineTop.className = "line top";
+  // Ligne verticale
+  const line = document.createElement("div");
+  line.className = "line unique";
 
-  const plusBtn = document.createElement("button");
-  plusBtn.className = "plus-button";
-  plusBtn.textContent = "+";
+  // Bouton haut
+  const arrowUpBtn = document.createElement("button");
+  arrowUpBtn.className = "arrow-button arrow-up";
+  arrowUpBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 6L11 16M11 6L7 10M11 6L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  arrowUpBtn.title = "Aller à l'année précédente";
+  arrowUpBtn.addEventListener("click", () => {
+    arrowUpBtn.disabled = true;
+    arrowUpBtn.classList.add("clicked");
+    const prevYear = data.year - 1;
+    if (prevYear >= 1979) {
+      const prevSection = document.querySelector(`section.year-block[data-year='${prevYear}']`);
+      if (prevSection) {
+        prevSection.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => {
+          arrowUpBtn.disabled = false;
+          arrowUpBtn.classList.remove("clicked");
+        }, 700);
+      } else {
+        loadYear(prevYear);
+        setTimeout(() => {
+          const prevSectionLoaded = document.querySelector(`section.year-block[data-year='${prevYear}']`);
+          if (prevSectionLoaded) {
+            prevSectionLoaded.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          arrowUpBtn.disabled = false;
+          arrowUpBtn.classList.remove("clicked");
+        }, 900);
+      }
+    } else {
+      setTimeout(() => {
+        arrowUpBtn.disabled = false;
+        arrowUpBtn.classList.remove("clicked");
+      }, 500);
+    }
+  });
 
-  const lineBottom = document.createElement("div");
-  lineBottom.className = "line bottom";
+  // Bouton bas
+  const arrowDownBtn = document.createElement("button");
+  arrowDownBtn.className = "arrow-button arrow-down";
+  arrowDownBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 16L11 6M11 16L7 12M11 16L15 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  arrowDownBtn.title = "Aller à l'année suivante";
+  arrowDownBtn.addEventListener("click", () => {
+    arrowDownBtn.disabled = true;
+    arrowDownBtn.classList.add("clicked");
+    const nextYear = data.year + 1;
+    if (nextYear <= maxYear) {
+      const nextSection = document.querySelector(`section.year-block[data-year='${nextYear}']`);
+      if (nextSection) {
+        nextSection.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => {
+          arrowDownBtn.disabled = false;
+          arrowDownBtn.classList.remove("clicked");
+        }, 700);
+      } else {
+        loadYear(nextYear);
+        setTimeout(() => {
+          const nextSectionLoaded = document.querySelector(`section.year-block[data-year='${nextYear}']`);
+          if (nextSectionLoaded) {
+            nextSectionLoaded.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          arrowDownBtn.disabled = false;
+          arrowDownBtn.classList.remove("clicked");
+        }, 900);
+      }
+    } else {
+      setTimeout(() => {
+        arrowDownBtn.disabled = false;
+        arrowDownBtn.classList.remove("clicked");
+      }, 500);
+    }
+  });
 
-  lineButton.appendChild(lineTop);
-  lineButton.appendChild(plusBtn);
-  lineButton.appendChild(lineBottom);
+  // Placement : bouton bas, ligne, bouton haut
+  lineButton.appendChild(arrowDownBtn);
+  lineButton.appendChild(line);
+  lineButton.appendChild(arrowUpBtn);
 
   chrono.appendChild(yearTitle);
   chrono.appendChild(lineButton);
@@ -193,6 +261,11 @@ function setupScrollLoading() {
 
 // Lancement initial
 window.addEventListener("DOMContentLoaded", () => {
+  // Animation du header
+  const header = document.getElementById("site-header");
+  if (header) {
+    setTimeout(() => header.classList.add("visible"), 100);
+  }
   setupScrollLoading();
 });
 

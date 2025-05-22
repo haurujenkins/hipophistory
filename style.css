@@ -29,6 +29,14 @@ header#site-header {
   text-align: center;
   padding: 40px 20px 20px;
   background: #000;
+  opacity: 0;
+  transform: translateY(-40px);
+  transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+}
+
+#site-header.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 #site-header h1 {
@@ -106,10 +114,11 @@ header#site-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between; /* ← répartit top/bouton/bottom */
+  justify-content: stretch;
   flex-grow: 1;
   height: 100%;
   padding: 10px 0;
+  gap: 18px;
 }
 
 
@@ -133,6 +142,14 @@ header#site-header {
   min-height: 20px;
 }
 
+.line.unique {
+  width: 4px;
+  background-color: #fff;
+  flex-grow: 1;
+  min-height: 40px;
+  margin: 0;
+}
+
 .plus-button {
   background: none;
   color: #fff;
@@ -148,6 +165,53 @@ header#site-header {
   margin: 20px 0;
 }
 
+/* === ARROW BUTTON === */
+.arrow-button {
+  background: none;
+  color: #fff;
+  border: 2px solid #fff;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  transition: background 0.2s, color 0.2s, border 0.2s, opacity 0.2s, filter 0.2s;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0;
+}
+
+.arrow-button.arrow-up {
+  margin-bottom: 8px;
+}
+
+.arrow-button.arrow-down {
+  margin-top: 8px;
+}
+
+.arrow-button:hover, .arrow-button:focus {
+  background: #fff;
+  color: #ff2a2a;
+  border-color: #ff2a2a;
+  outline: none;
+}
+
+.arrow-button.clicked {
+  opacity: 0.6;
+  pointer-events: none;
+  filter: grayscale(0.7);
+}
+
+.arrow-button svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
 /* === EVENT CONTENT (RIGHT) === */
 .event, .extra-events {
   flex: 1 1 0;
@@ -161,6 +225,7 @@ header#site-header {
   gap: 20px;
   align-items: center;
   margin-bottom: 40px;
+  margin-top: 40px; /* Ajoute un espace au-dessus du premier event */
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
