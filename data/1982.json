@@ -1,10 +1,10 @@
 {
-    "year": 1980,
+    "year": 1982,
     "events": [
         {
-            "title": "Premieres pratiques hip-hop en France",
-            "description": "1980 est l’année où le hip-hop commence à naître dans les rues françaises, sous forme de danse, de graffitis et de sons importés, dans l’anonymat et sans structure, mais avec une énergie réelle. On assiste à l’éveil du mouvement, avant même qu’il ait un nom.",
-            "image": "images/bombe-graff.png"
+            "title": "Premier concert majeur a Paris",
+            "description": "Une nouvelle génération de rappeurs français se produit pour la première fois sur une grande scène parisienne.",
+            "image": "../images/Lunatic.png"
         }
         ,
         {

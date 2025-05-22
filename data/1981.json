@@ -2,8 +2,9 @@
   "year": 1981,
   "events": [
     {
-      "title": "NTM sort son premier maxi",
-      "description": "Le duo emblématique de Seine-Saint-Denis sort 'Le Monde de Demain'."
+      "title": "Premiers breakers au Trocadéro",
+      "description": "En 1981, des jeunes commencent à danser publiquement sur le parvis du Trocadéro à Paris. Inspirés par la funk et des vidéos venues des États-Unis, ils exécutent les premiers mouvements de breakdance en France. Ce sont les premières démonstrations visibles de la culture hip-hop dans l’espace public.",
+      "image": "../images/break-argentique.png"
     }
   ]
 }

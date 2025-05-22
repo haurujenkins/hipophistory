@@ -12,72 +12,233 @@
   font-style: normal;
 }
 
+/* === BASE === */
 body {
-    margin: 0;
-    background: #000;
-    color: #fff;
-    font-family: 'Open Sans', sans-serif;
+  background: #000;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-#site-header {
-    position: fixed;
-    background: #000;
-    top: 0;
-    width: 100%;
-    color: #fff;
-    padding: 20px 40px;
-    z-index: 1000;
-    border-bottom: 1px solid #222;
-    text-align: center;
+h1, h2, p {
+  margin: 0;
+}
+
+header#site-header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  background: #000;
 }
 
 #site-header h1 {
-  margin: 0;
   font-family: 'Akira', sans-serif;
-  font-size: 36px;
-  letter-spacing: 3px;
-  color: #ff0000;
-  text-transform: uppercase;
+  font-size: 48px;
+  color: #ff2a2a;
+  letter-spacing: 2px;
 }
 
-#timeline {
-    padding: 180px 50px 50px 50px;
+#site-header p {
+  margin-top: 10px;
+  color: #aaa;
+  font-style: italic;
+  font-size: 16px;
 }
 
-.year-section {
-    margin-bottom: 100px;
-    border-left: 4px solid #fff;
-    padding-left: 20px;
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.6s ease;
+/* === TIMELINE CONTAINER === */
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 100px 100px 40px 10%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
 
-.year-section.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* === YEAR BLOCK STRUCTURE === */
+.year-block {
+  display: flex;
+  align-items: stretch;     /* ← crucial */
+  gap: 40px;
+  margin-bottom: 15px;
+  width: 100%;
+  position: relative;
+}
+
+.year-block.reverse .event {
+  flex-direction: row-reverse;
+}
+
+.year-block.reverse .event-image {
+  margin-right: 0;
+  margin-left: 24px;
+}
+
+.year-chronology {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;    /* ← clé ici */
+  height: auto;           /* ← pas de height fixe bloquante */
+  flex-shrink: 0;
+  min-width: 80px;
+  max-width: 120px;
 }
 
 .year-title {
-    font-family: 'Akira', sans-serif;
-    font-size: 32px;
-    margin-bottom: 10px;
-    color: #00ffcc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Akira', sans-serif;
+  font-size: clamp(18px, 6vw, 44px);
+  color: #ff2a2a;
+  margin-bottom: 20px;
+  white-space: nowrap;
+  overflow: visible;
+  max-width: 100%;
+}
+
+/* Lignes et bouton + */
+
+.line-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* ← répartit top/bouton/bottom */
+  flex-grow: 1;
+  height: 100%;
+  padding: 10px 0;
+}
+
+
+.line {
+  width: 4px;
+  background-color: #fff;
+  flex-grow: 1;             /* ← rempli l'espace restant */
+  min-height: 10px;
+}
+
+.line.top {
+  flex-grow: 0.4;  
+  height: auto;
+}
+
+.line.bottom {
+  height: auto;
+}
+
+.line.top, .line.bottom {
+  min-height: 20px;
+}
+
+.plus-button {
+  background: none;
+  color: #fff;
+  font-size: 20px;
+  border: 2px solid #fff;
+  width: 28px;
+  height: 28px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 24px;
+  margin: 20px 0;
+}
+
+/* === EVENT CONTENT (RIGHT) === */
+.event, .extra-events {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .event {
-    margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
 }
 
-.event h3 {
-    font-family: 'Draper', sans-serif;
-    color : #00ffcc;
-    font-size: 20px;
-    margin-bottom: 5px;
+.event.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.event p {
-    font-family: 'Open Sans', sans-serif;
-    color: #fff;
-    font-size: 16px;
+.event-image {
+  width: 40%;
+  min-width: 180px;
+  max-width: 400px;
+  height: auto;
+  mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 35%, transparent 80%);
+  display: block;
+  margin-right: 24px;
+}
+
+.event-el .title {
+  font-family: 'Akira', sans-serif;
+  font-size: clamp(18px, 5vw, 32px);
+  font-weight: bold;
+  color: #ff2a2a;
+  text-transform: uppercase;
+  line-height: 1.2;
+  max-width: 600px;
+}
+
+
+.event-el .description {
+  font-size: 16px;
+  color: #ddd;
+  line-height: 1.5;
+max-width: 600px;
+}
+
+/* === EXTRA EVENTS (déroulés) === */
+.extra-events {
+  margin-top: 20px;
+  padding-left: 120px;
+}
+
+/* === Responsive === */
+@media screen and (max-width: 768px) {
+  .timeline-container {
+    padding: 40px 10px 20px 40px;
+  }
+  .year-block {
+    flex-direction: row;
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+  .year-block.reverse .event {
+    flex-direction: column;
+  }
+  .year-block.reverse .event-image {
+    margin-left: 0;
+    margin-bottom: 12px;
+  }
+  .year-chronology {
+    min-width: 70px;
+    max-width: 90px;
+  }
+  .event-image {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+  .event {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .extra-events {
+    padding-left: 0;
+  }
 }
